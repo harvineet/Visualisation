@@ -40,24 +40,26 @@ public class FinalControlListener extends ControlAdapter implements Control  {
 			
 			//int neutral,left,congress=0;
 			String NAME = ((String) item.get("Name"));
-			String STAND = (String) item.get("Stand");
+			int STAND =  (Integer) item.get("Value");
 			int itemno = item.getRow();
 			JPopupMenu jpub = new JPopupMenu();
-			jpub.add("id no.: " +itemno);
+			jpub.add("id no.: " +(itemno+1));
 			jpub.add("Name: " + NAME);
-			jpub.add("Stand: " + STAND);
-			int nodedegree = ((NodeItem) item).getDegree()  ;
-			jpub.add("Degree: " + nodedegree);
+			jpub.add("Value: " + STAND);
+			int nodedegree_in = ((NodeItem) item).getInDegree()  ;
+			int nodedegree_out = ((NodeItem) item).getOutDegree() ;
+			jpub.add("In_degree: " + nodedegree_in);
+			jpub.add("Out_degree: " + nodedegree_out);
 			Graph graph =  ((NodeItem) item).getGraph();
 	    	int edgecount = graph.getEdgeCount();
 		    //int nodecount = graph.getNodeCount();
-			
-			int[][] tab = nodeinfo.tabularinfo(graph);
+	    	Play_node p= new Play_node();
+			int[][] tab = p.make_table(graph);
 		
 
-			jpub.add("Left: " +tab[itemno][edgecount+1] );
-			jpub.add("Neutral: " + tab[itemno][edgecount+2] );
-			jpub.add("Cong: " + tab[itemno][edgecount+3]);
+			jpub.add("Left: " +tab[itemno][0] );
+			//jpub.add("Neutral: " + tab[itemno][edgecount+2] );
+			jpub.add("Cons: " + tab[itemno][1]);
 			
 			jpub.show(e.getComponent(),1,1);
 			

@@ -13,9 +13,9 @@ public class FinalRenderer extends AbstractShapeRenderer
 	protected Shape getRawShape(VisualItem item) 
 	{	
 		int x=0;
-		if(item.get("Stand").equals("l")) {x=15;}
-		if(item.get("Stand").equals("c")) {x=30;}
-		if(item.get("Stand").equals("n")) {x=10;}
+		if(item.get("Value").equals(0)) {x=10;}
+		if(item.get("Value").equals(1)) {x=15;}
+		//if(item.get("Stand").equals("n")) {x=10;}
 		
 		m_box.setFrame(item.getX(), item.getY(),x,x);
 

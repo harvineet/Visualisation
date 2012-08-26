@@ -49,70 +49,73 @@ import prefuse.data.Node;
 import prefuse.data.Table;
 public class New_Class 
 {
-	int count_neu = 0;
 	int count_right = 0;
 	int count_left = 0;
-	public New_Class()
-	{
-		 count_neu = 0;
-		 count_right = 0;
-		 count_left = 0;
-		 System.out.println(count_neu);
-		 System.out.println(count_right);
-		 System.out.println(count_left);
-	}
+	int ncount_right=0;
+	int ncount_left=0;
 	
-	public Graph create_random(Graph g)
+	
+	public Graph create_random(Graph g, int num)
 	{
+		//runner run = new runner(); 
+		
 		Table r2 = g.getNodeTable();
 		Graph g1 = new Graph();
 		g1=g;
 		
-		int n_edges = g.getEdgeCount();
-		for(int i=0;i<n_edges;i++)
-		{
-			g1.removeEdge(i);
-		}
+		int n_edges = num;
 		int n_nodes = g1.getNodeCount();
 		Random rands = new Random();
+		
 		for(int i=0;i<n_edges;i++)
 		{
 			int first = rands.nextInt(n_nodes-1);
 			int second = rands.nextInt(n_nodes-1);
 			while(first==second)
 			{
+				//System.out.println("Error Might in error");
 				second = rands.nextInt(n_nodes-1);
 			}
 			g1.addEdge(first, second);
 			
 			
-			String s =   r2.getString(first,1);
-			String s2 =  r2.getString(second,1);
+			int s =  (Integer) r2.get(first,"Value");
+			int s2 =  (Integer) r2.get(second,"Value");
 			 //System.out.println(s);
 			 //System.out.println(s2);
-			if (s.equals(s2))
+			if (s==(s2))
 			{
-				if (s.equals("l"))
+				if (s==(0))
 				{
 					count_left++;
 				}
-				if (s.equals("c"))
+				if (s==(1))
 				{
 					count_right++;
 				}
-				if (s.equals("n"))
-				{
-					count_neu++;
-				}
 			}
 		}	
-		System.out.println("Total Number Of Edges = " + n_edges);
+		
 		n_edges=0;
 		return g1;
-		
+	}
+	public void node_cal(Graph g)
+	{
+		Table r2 = g.getNodeTable();
+		for(int i=0; i< g.getNodeCount(); i++)
+		{
+			int s =   Integer.parseInt(r2.getString(i,1));
+			
+			if (s==(1))
+			{
+				ncount_right++;
+			}
+			if (s==(0))
+			{
+				ncount_left++;
+			}
+			
+		}
 		
 	}
-
-
-
 }
