@@ -25,7 +25,6 @@ import prefuse.data.Node;
 
 		public class Imp 
 		{
-	    	//static Graph graph1 = new Graph();
 	    	int source=0,target=0;
 	    	String names2;
 	    	int values2;
@@ -125,38 +124,13 @@ import prefuse.data.Node;
 			    else {}	    
 			    return graph1;
 		  }
-		  
-		  
+
 		  // PRIVATE 
 		  private final File fFile;	  
 		  private static void log(Object aObject){ System.out.println(String.valueOf(aObject));}		  
 		  
 		  public void give_vis(Graph x)
 		  {
-			    
-			  /*int edgecount = x.getEdgeCount();
-			    int nodecount = x.getNodeCount();
-			    
-		    //int[][] nodeinformation  = new int[nodecount][edgecount];
-		    Play_node p= new Play_node();
-			int[][] nodeinformation = p.make_table(x);
-				
-	
-			    Table edgeinfo = graph.getEdgeTable();
-			    edgeinfo.addColumn("Edgetype", String.class);
-			    //n.set("Name", names2);
-			    int i,src,trgt;
-			    for(i=0;i<edgecount;i++)
-			    {
-			    	 src = graph.getSourceNode(i);
-					  trgt = graph.getTargetNode(i);
-					 String s = graph.get(src,1);
-					  
-			    }*/
-			    	
-			    
-			    
-			    
 			    // -- 2. the visualization --------------------------------------------
 		        
 		        // add the graph to the visualization as the data group "graph"
@@ -169,63 +143,38 @@ import prefuse.data.Node;
 		        
 		        // draw the "name" label for NodeItems
 
-
-
 		        LabelRenderer r1 = new LabelRenderer("Name");
 		        r1.setRoundedCorner(8, 8);
 		        
 		        FinalRenderer r = new FinalRenderer();
-		        
-		        
-		        
 
-		        
-		        
 		        // create a new default renderer factory
 		        // return our name label renderer as the default for all non-EdgeItems
 		        // includes straight line edges for EdgeItems by default
 		        vis.setRendererFactory(new DefaultRendererFactory(r));
 		        
-		      //  vis.setRendererFactory(new DefaultRendererFactory(r1));
+		        //  vis.setRendererFactory(new DefaultRendererFactory(r1));
 		        	        
 		        // -- 4. the processing actions ---------------------------------------
 		        
 		        // create our nominal color palette
-		        // pink for females, baby blue for males
 		        int[] palette = {ColorLib.rgb(100, 210, 100),ColorLib.rgb(100,100,255)};
-		        //int[] palette_1 = {ColorLib.rgb(100, 150, 100), ColorLib.rgb(150,100,100),ColorLib.rgb(100,100,150)};
 		        
-		     // Now we create the DataColorAction
-		     // We give it the nodes to color, the data column to color by, a
-		     // constant (don't worry about it (or check the api)),
-		     // the way to color, and the palette to use.
+		        // Now we create the DataColorAction
+		        // We give it the nodes to color, the data column to color by, a
+		        // the way to color, and the palette to use.
 		        DataColorAction fill = new DataColorAction("graph.nodes", "Value",Constants.NOMINAL,VisualItem.FILLCOLOR,palette);
 		        ColorAction edges = new ColorAction("graph.edges", 
 		        VisualItem.STROKECOLOR, ColorLib.gray(200));
-		        //DataColorAction fill1 = new DataColorAction("graph.nodes", "Stand",Constants.NOMINAL,VisualItem.FIXED,palette_1);
-		       // DataColorAction fill2 = new DataColorAction("graph.nodes", "Stand",Constants.NOMINAL,VisualItem.HIGHLIGHT,palette_1);
-		        
-		        
 		        
 		        fill.add(VisualItem.FIXED, ColorLib.gray(0));
 		        fill.add(VisualItem.HIGHLIGHT, ColorLib.rgb(255,200,125));
 		        
-		        //ActionList draw = new ActionList();
-		        //draw.add(filter);
-		        //draw.add(fill);
-		        //draw.add(edges);
-		        //draw.add(new ColorAction("graph.nodes", VisualItem.STROKECOLOR, 0));
-		        //draw.add(new ColorAction("graph.nodes", VisualItem.TEXTCOLOR, ColorLib.rgb(0,0,0)));
-		        //draw.add(new ColorAction("graph.edges", VisualItem.FILLCOLOR, ColorLib.gray(200)));
-		        //draw.add(new ColorAction("graph.edges", VisualItem.STROKECOLOR, ColorLib.gray(200)));
-		        
 		        ActionList animate = new ActionList(Activity.INFINITY);
 		        animate.add(new ForceDirectedLayout("graph"));
 		        animate.add(fill);
-		        //animate.add(fill1);
-		        //animate.add(fill2);
 		        animate.add(edges);
-		       animate.add(new RepaintAction());
+		        animate.add(new RepaintAction());
 		        
 		        // finally, we register our ActionList with the Visualization.
 		        // we can later execute our Actions by invoking a method on our
@@ -246,12 +195,8 @@ import prefuse.data.Node;
 		        d.addControlListener(new WheelZoomControl());
 		        d.addControlListener(new ZoomToFitControl());
 		        d.addControlListener(new NeighborHighlightControl());
-
-		        
-		      d.addControlListener(new FinalControlListener());
-		    //   d.addControlListener(new HoverActionControl("fill"));
-		        
-
+ 
+		        d.addControlListener(new FinalControlListener());
 		        
 		        // create a new window to hold the visualization
 		        JFrame frame = new JFrame("political views data visualisation");
@@ -267,4 +212,4 @@ import prefuse.data.Node;
 		        vis.run("layout");      
 			  
 		  }
-		} 
+		}

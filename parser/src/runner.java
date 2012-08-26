@@ -1,55 +1,9 @@
-import java.io.FileNotFoundException;
-import java.lang.*;
-
 import java.io.*;
-import java.util.Scanner;
-import javax.swing.JFrame;
-import prefuse.action.ActionList;
-import prefuse.action.RepaintAction;
-import prefuse.action.assignment.ColorAction;
-import prefuse.action.assignment.DataColorAction;
-import prefuse.activity.Activity;
 import prefuse.data.Graph;
-import prefuse.data.io.DataIOException;
-import prefuse.data.io.GraphMLReader;
-import prefuse.render.DefaultRendererFactory;
-import prefuse.render.LabelRenderer;
-import prefuse.util.ColorLib;
-import prefuse.visual.VisualItem;
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.geom.Rectangle2D;
-import java.util.Random;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import prefuse.Constants;
-import prefuse.Display;
-import prefuse.Visualization;
-import prefuse.action.layout.CircleLayout;
-import prefuse.action.layout.RandomLayout;
-import prefuse.action.layout.graph.ForceDirectedLayout;
-import prefuse.controls.DragControl;
-import prefuse.controls.PanControl;
-import prefuse.controls.ZoomControl;
-import prefuse.data.Edge;
-import prefuse.data.Graph;
-import prefuse.data.Node;
-import prefuse.data.Schema;
 import prefuse.data.Table;
-import prefuse.data.io.CSVTableReader;
-import prefuse.render.ShapeRenderer;
-import prefuse.util.FontLib;
-import prefuse.util.PrefuseLib;
-import prefuse.visual.VisualItem;
-import prefuse.visual.expression.InGroupPredicate;
-import prefuse.data.io.TableReader;
 
 public class runner 
 {
-	
-	
-	
 	public static void main(String[] args) throws Exception 
 	{
 		int ocount_left=0;
@@ -60,10 +14,8 @@ public class runner
 		for(int i=0; i< g1.getEdgeCount();i++)
 		{
 			Table r2 = g1.getNodeTable();
-			//g1.getEdge(i);
 			int src = g1.getSourceNode(i);
 			int trgt = g1.getTargetNode(i);
-			//System.out.println(src<trgt);
 			int s =  (Integer) r2.get(src,"Value");
 			int s2 =  (Integer) r2.get(trgt,"Value");
 			if (s==(s2))
@@ -86,79 +38,65 @@ public class runner
 	    System.out.println("left density = " + ol_den);
 	    System.out.println("right density = " + or_den);
 	    
-		//System.out.println("Ori Neutral Book Edges = " + ocount_neu);
-	    //System.out.println("Ori Right Book Edges = "+ ocount_right);
-	    //System.out.println("Ori Left Book Edges = "+ ocount_left);
 	    float b1 = ocount_right+ ocount_left;
 	    float b2= g1.getEdgeCount();
 		float oAff_ratio= (float)(b1/b2);
 		System.out.println("Aff ratio in original graph is = "+ oAff_ratio);
-		Imp parser2 =new Imp("polblogs.gml");
+		/*Imp parser2 =new Imp("polblogs.gml");
 		Graph g2 = parser2.read();
 		int num_edges = g2.getEdgeCount();
 		for(int i=0; i< num_edges;i++)
 		{
 			g2.removeEdge(i);
 			
-		}
+		}*/
 		File file = new File("randomgraph_blogs.csv");
 		Writer output = null;
 		output = new BufferedWriter(new FileWriter(file));
 		output.write("%graph id,same_affiliation_ratio,clustering_coeff_total,clustering_coeff_same\n");
 		for(int i=0; i<30; i++)
 		{
-			
 			New_Class n = new New_Class();
-			//System.out.println("Error Might be hear");
-		    n.create_random(g2, num_edges);
-		    
+			
+			Imp parser2 =new Imp("polblogs.gml");
+			Graph g2 = parser2.read();
+			int num_edges = g2.getEdgeCount();
+			for(int j=0; j< num_edges;j++)
+			{
+				g2.removeEdge(j);
+				
+			}
+			//System.out.println(g2.getEdgeCount());
+			n.create_random(g2, num_edges);
+			for(int j=0; j< num_edges;j++)
+			{
+				g2.removeEdge(j);
+				
+			}
+			//System.out.println(n.count_right);
 		    int same_affiliation= n.count_right+ n.count_left;
-		    float Aff_ratio;
-		    
-		    Aff_ratio = (float)(same_affiliation)/(num_edges);
-		    
-		   // float l_den= (float)(n.count_left)/(n.ncount_left);
-		    //float r_den= (float)(n.count_right)/(n.ncount_right);
-		   // float n_den= (float)(n.count_neu)/(n.ncount_neu);
-		    //System.out.println("left density = " + l_den);
-		    //System.out.println("right density = " + r_den);
-		    //System.out.println("Neutral density = " + n_den);
-		    //System.out.println("Right Book Edges = "+ n.count_right);
-		   // System.out.println("Left Book Edges = "+ n.count_left);
-		    //System.out.println(same_affiliation);
-		    
-		    //System.out.println(Aff_ratio);
+		    double Aff_ratio;
+		    //System.out.println(g2.getEdgeCount()+"@");
+		    Aff_ratio = (double)(same_affiliation)/(num_edges);
+
 		    New_Class n2 = new New_Class();
 		    Cal_triad c= new Cal_triad();
-		    float f=c.triad(n2.create_random(g2, num_edges));
-		    output.write(i+","+Aff_ratio+","+f+","+c.same_triad_ratio+"\n");
-		    //System.out.println("Neutral Book Edges = " + n.count_neu);
-		    //System.out.println("Right Book Edges = "+ n.count_right);
-		   // System.out.println("Left Book Edges = "+ n.count_left);
 		    
+		    double f=c.triad(n2.create_random(g2, num_edges));
+		    output.write(i+","+Aff_ratio+","+f+","+c.same_triad_ratio+"\n");
 		}
 		output.close();
 		
 		Play_node pn= new Play_node();
 		pn.max_lcr(g1);
-		//pn.min_lcr(g1);
 		
 		New_Class n = new New_Class();
 		n.node_cal(g1);
 		
 		Cal_triad ct= new Cal_triad();
-		float org_ct= ct.triad(g1);
-		float same_ct = ct.same_triad_ratio;
+		double org_ct= ct.triad(g1);
+		double same_ct = ct.same_triad_ratio;
 		System.out.println("clustering coefficient of original dataset =" +org_ct);
-		System.out.println("Same clustering coefficient of original dataset =" +same_ct);
-		
-		
-		
-		
-		
-	
-		
+		System.out.println("Same clustering coefficient of original dataset =" +same_ct);	
 	}
-
-
 }

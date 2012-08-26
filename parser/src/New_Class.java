@@ -57,14 +57,12 @@ public class New_Class
 	
 	public Graph create_random(Graph g, int num)
 	{
-		//runner run = new runner(); 
-		
 		Table r2 = g.getNodeTable();
-		Graph g1 = new Graph();
-		g1=g;
+		/*Graph g1 = new Graph();
+		g1=g;*/
 		
 		int n_edges = num;
-		int n_nodes = g1.getNodeCount();
+		int n_nodes = g.getNodeCount();
 		Random rands = new Random();
 		
 		for(int i=0;i<n_edges;i++)
@@ -73,16 +71,13 @@ public class New_Class
 			int second = rands.nextInt(n_nodes-1);
 			while(first==second)
 			{
-				//System.out.println("Error Might in error");
 				second = rands.nextInt(n_nodes-1);
 			}
-			g1.addEdge(first, second);
+			g.addEdge(first, second);
 			
 			
 			int s =  (Integer) r2.get(first,"Value");
 			int s2 =  (Integer) r2.get(second,"Value");
-			 //System.out.println(s);
-			 //System.out.println(s2);
 			if (s==(s2))
 			{
 				if (s==(0))
@@ -97,7 +92,7 @@ public class New_Class
 		}	
 		
 		n_edges=0;
-		return g1;
+		return g;
 	}
 	public void node_cal(Graph g)
 	{

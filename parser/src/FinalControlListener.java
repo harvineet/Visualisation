@@ -37,8 +37,6 @@ public class FinalControlListener extends ControlAdapter implements Control  {
 	{
 		if(item instanceof NodeItem)
 		{
-			
-			//int neutral,left,congress=0;
 			String NAME = ((String) item.get("Name"));
 			int STAND =  (Integer) item.get("Value");
 			int itemno = item.getRow();
@@ -50,24 +48,16 @@ public class FinalControlListener extends ControlAdapter implements Control  {
 			int nodedegree_out = ((NodeItem) item).getOutDegree() ;
 			jpub.add("In_degree: " + nodedegree_in);
 			jpub.add("Out_degree: " + nodedegree_out);
+			
 			Graph graph =  ((NodeItem) item).getGraph();
 	    	int edgecount = graph.getEdgeCount();
-		    //int nodecount = graph.getNodeCount();
+	    	
 	    	Play_node p= new Play_node();
 			int[][] tab = p.make_table(graph);
-		
-
+			
 			jpub.add("Left: " +tab[itemno][0] );
-			//jpub.add("Neutral: " + tab[itemno][edgecount+2] );
 			jpub.add("Cons: " + tab[itemno][1]);
-			
 			jpub.show(e.getComponent(),1,1);
-			
-			
-			
-			
-			
-
 		}
 
 		

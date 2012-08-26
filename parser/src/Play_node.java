@@ -1,49 +1,5 @@
-import java.io.FileNotFoundException;
-import java.lang.*;
-
-import java.io.*;
-import java.util.Scanner;
-import javax.swing.JFrame;
-import prefuse.action.ActionList;
-import prefuse.action.RepaintAction;
-import prefuse.action.assignment.ColorAction;
-import prefuse.action.assignment.DataColorAction;
-import prefuse.activity.Activity;
 import prefuse.data.Graph;
-import prefuse.data.io.DataIOException;
-import prefuse.data.io.GraphMLReader;
-import prefuse.render.DefaultRendererFactory;
-import prefuse.render.LabelRenderer;
-import prefuse.util.ColorLib;
-import prefuse.visual.VisualItem;
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.geom.Rectangle2D;
-import java.util.Random;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import prefuse.Constants;
-import prefuse.Display;
-import prefuse.Visualization;
-import prefuse.action.layout.CircleLayout;
-import prefuse.action.layout.RandomLayout;
-import prefuse.action.layout.graph.ForceDirectedLayout;
-import prefuse.controls.DragControl;
-import prefuse.controls.PanControl;
-import prefuse.controls.ZoomControl;
-import prefuse.data.Edge;
-import prefuse.data.Graph;
-import prefuse.data.Node;
-import prefuse.data.Schema;
 import prefuse.data.Table;
-import prefuse.data.io.CSVTableReader;
-import prefuse.render.ShapeRenderer;
-import prefuse.util.FontLib;
-import prefuse.util.PrefuseLib;
-import prefuse.visual.VisualItem;
-import prefuse.visual.expression.InGroupPredicate;
-import prefuse.data.io.TableReader;
 public class Play_node 
 {
 	
@@ -64,7 +20,7 @@ public class Play_node
 		for(int i=0;i<g.getEdgeCount() ;i++ )
 		{
 			int src = g.getSourceNode(i);
-			int trgt = g.getTargetNode(i);//System.out.println(r2.get(src,"Value"));
+			int trgt = g.getTargetNode(i);
 			int s1 =  (Integer) r2.get(src,"Value");
 			int s2 =  (Integer) r2.get(trgt,"Value");
 			if(s1==(s2)) 
@@ -86,15 +42,6 @@ public class Play_node
 				
 			}	
 		}
-		//for(int i=0;i<g.getNodeCount();i++)
-		//{
-			//for(int j=0;j<10;j++)
-			//{
-			//	System.out.print(nodeinfo[i][j] + " , ");
-				
-		//}
-			//System.out.println();
-		//}
 		return nodeinfo;
 	}
 	public void max_lcr(Graph g)
@@ -112,7 +59,7 @@ public class Play_node
 		int nsame=0;
 		int ndiff=0;
 		int ndeg_in=0;
-		//int[][] nodeinfo = new int[g.getNodeCount()][6];
+		
 		int[][] nodeinfo = make_table(g);
 		for(int i=0; i<g.getNodeCount();i++)
 		{

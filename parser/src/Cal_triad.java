@@ -7,12 +7,12 @@ import prefuse.data.Table;
 public class Cal_triad {
 	
 	public int same_triad=0;
-	public float same_triad_ratio=0;
+	public double same_triad_ratio=0;
 	
-	public float triad (Graph g) {
+	public double triad (Graph g) {
 		int num_triad=0;
 		Table r2 = g.getNodeTable();
-		for (int i=0; i< g.getEdgeCount();i++) {
+		for (int i=0; i< g.getEdgeCount();i++) {//System.out.println(g.getEdgeCount());
 			int source_node= g.getSourceNode(i);
 			int target_node= g.getTargetNode(i);
 			for (int j=0; j< g.getEdgeCount();j++) {
@@ -30,9 +30,9 @@ public class Cal_triad {
 		//System.out.println("number of triads =" + num_triad);
 		//System.out.println(same_triad+","+ num_triad);
 		int nc2= g.getNodeCount()*(g.getNodeCount()-1)/2;
-		same_triad_ratio= (float)(same_triad)/(nc2);
+		same_triad_ratio= (double)(same_triad)/(nc2);
 		//System.out.println("clustering coefficient =" + (float)(num_triad)/(nc2));
-		return((float)(num_triad)/(nc2));
+		return((double)(num_triad)/(nc2));
 	}
 
 }
