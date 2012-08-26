@@ -105,7 +105,7 @@ public class runner
 		Writer output = null;
 		output = new BufferedWriter(new FileWriter(file));
 		output.write("%graph id,same_affiliation_ratio,clustering_coeff_total,clustering_coeff_same\n");
-		for(int i=0; i<100; i++)
+		for(int i=0; i<30; i++)
 		{
 			
 			New_Class n = new New_Class();
@@ -128,10 +128,10 @@ public class runner
 		    //System.out.println(same_affiliation);
 		    
 		    //System.out.println(Aff_ratio);
-		    /*New_Class n2 = new New_Class();
+		    New_Class n2 = new New_Class();
 		    Cal_triad c= new Cal_triad();
-		    float f=c.triad(n2.create_random(g2, num_edges));*/
-		    output.write(i+","+Aff_ratio/*+","+f+","+c.same_triad_ratio*/+"\n");
+		    float f=c.triad(n2.create_random(g2, num_edges));
+		    output.write(i+","+Aff_ratio+","+f+","+c.same_triad_ratio+"\n");
 		    //System.out.println("Neutral Book Edges = " + n.count_neu);
 		    //System.out.println("Right Book Edges = "+ n.count_right);
 		   // System.out.println("Left Book Edges = "+ n.count_left);

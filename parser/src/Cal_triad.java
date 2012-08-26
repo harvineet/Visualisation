@@ -15,21 +15,16 @@ public class Cal_triad {
 		for (int i=0; i< g.getEdgeCount();i++) {
 			int source_node= g.getSourceNode(i);
 			int target_node= g.getTargetNode(i);
-			int j=i+1;
-			while(j<g.getEdgeCount() && g.getSourceNode(j)==source_node) {
-				
-				if (g.getEdge(g.getNode(g.getTargetNode(j)), g.getNode(target_node)) !=null) {
-					
-					String s1 =   r2.getString(source_node,1);
-					String s2 =  r2.getString(target_node,1);
-					String s3 =  r2.getString(g.getTargetNode(j),1);
-					if(s1.equals(s2) && s2.equals(s3)) {
-						same_triad++;
-					}
-					num_triad++;
-					
+			for (int j=0; j< g.getEdgeCount();j++) {
+				if(g.getSourceNode(j)==target_node && g.getEdge(g.getNode(g.getTargetNode(j)), g.getNode(source_node)) !=null) {
+						int s1 =  (Integer) r2.get(source_node,"Value");
+						int s2 =  (Integer) r2.get(target_node,"Value");
+						int s3 =  (Integer) r2.get(g.getTargetNode(j),"Value");
+						if(s1==(s2) && s2==(s3)) {
+							same_triad++;
+						}
+						num_triad++;
 				}
-				j++;
 			}
 		}
 		//System.out.println("number of triads =" + num_triad);
